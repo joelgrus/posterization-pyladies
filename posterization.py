@@ -1,3 +1,19 @@
+# contains code stubs for posterizing images
+# you have to fill them in
+#
+# then you could do something like
+#
+# > from posterization import *
+# > pixels = get_pixels("bee.jpg")
+# > posterized = posterize(pixels, 4)
+# > show_pixels(posterized)
+#
+# there are unit tests at the bottom of the file
+# to help you know if your functions are working right
+# you can run them with
+#
+# $ python -m unittest posterization
+
 from __future__ import division
 from matplotlib.image import imread
 import matplotlib.pyplot as plt

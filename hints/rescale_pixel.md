@@ -6,7 +6,9 @@ simple way:
 
 use 
 
-    red = pixels[0]
+```python
+red = pixels[0]
+```
 
 and so on  
 
@@ -15,7 +17,9 @@ alternative way:
 
 use list unpacking:
 
+```python
 red, green, blue = pixels
+```
 
 next, rescale the colors
 ========================

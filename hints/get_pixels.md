@@ -12,14 +12,18 @@ modifying images (lists of lists)
 in this function you need to take an image represented as a list of lists
 and modify every element.  one way to do it is one row at a time:
 
-    output = []
-    for row in image:
-        # create a modified version of the row
-        new_row = [modified(element) for element in row]
-        # and append it to the output
-        output.append(new_row)
-        
+```python
+output = []
+for row in image:
+    # create a modified version of the row
+    new_row = [modified(element) for element in row]
+    # and append it to the output
+    output.append(new_row)
+```
+
 A slicker way to do it is with nested list comprehensions:
 
-    output = [[modified(element) for element in row]
-              for row in image]
+```python
+output = [[modified(element) for element in row]
+          for row in image]
+```
