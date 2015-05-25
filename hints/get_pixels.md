@@ -3,9 +3,11 @@ finding jpgs
 
 a simple way to check whether a file is a jpg is using endswith
 
+```python
   "picture.jpg".endswith(".jpg")  # True
   "picture.png".endswith(".jpg")  # False
-  
+```
+
 modifying images (lists of lists)
 =================================
 

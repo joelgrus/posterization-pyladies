@@ -1,10 +1,7 @@
 first, get the colors
 =====================
 
-simple way:
------------
-
-use 
+a simple way is just to index into each pixel:
 
 ```python
 red = pixels[0]
@@ -12,10 +9,7 @@ red = pixels[0]
 
 and so on  
 
-alternative way:
-----------------
-
-use list unpacking:
+a slightly slicker way is to use list unpacking:
 
 ```python
 red, green, blue = pixels
@@ -23,4 +17,6 @@ red, green, blue = pixels
 
 next, rescale the colors
 ========================
-if x is (say) between 0 and 100, then x / 100 is between 0 and 1
+I got into a big twitter argument about whether to divide by 255 or 256.
+In the end, I decided 256 made more sense, although not everyone agreed with me.
+
