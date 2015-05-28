@@ -1,19 +1,3 @@
-# contains code stubs for posterizing images
-# you have to fill them in
-#
-# then you could do something like
-#
-# > from posterization import *
-# > pixels = get_pixels("bee.jpg")
-# > posterized = posterize(pixels, 4)
-# > show_pixels(posterized)
-#
-# there are unit tests at the bottom of the file
-# to help you know if your functions are working right
-# you can run them with
-#
-# $ python -m unittest posterization
-
 from __future__ import division
 from matplotlib.image import imread
 import matplotlib.pyplot as plt
@@ -50,14 +34,14 @@ def squared_distance(p, q):
     and so on"""
     
     pass
-    
+
 def closest_index(p, means):
     """given a point p and a list of 'means' (also points),
     return the index of the mean that is closest to p
     (i.e. has the smallest squared_distance)"""
 
     pass
-               
+
 def mean(ps):
     """given a list of points, return the single point
     whose first element is 
@@ -74,21 +58,25 @@ def new_means(ps, old_means):
     and then compute the means of the new clusters"""
 
     pass
-            
+
 def k_means(ps, k, num_iterations=10):
     """given a list of points, choose k means to start with,
     then compute new_means num_iteration times,
     returning the final means"""
 
     pass
-    
+
+def recolor(pixel, mean_colors):
+    """return the element of mean_colors that's closest to pixel"""
+    pass
+
 def posterize(pixels, num_colors):
     """given a list of lists of pixels, 
     use k_means to find num_colors 'mean' colors
     and return a list of lists of recolored pixels"""
 
     pass
-            
+
 ###############
 #             #
 # TESTS BELOW #
@@ -186,9 +174,11 @@ class TestMean(unittest.TestCase):
     
     def test_concrete(self):
         ps = [[1,1,1], [1, 2, 3], [1, 4, 9]]
-        self.assertEqual(mean(ps),
-                         [1, 7 / 3, 13 / 3])
-                         
+        result = [1, 7 / 3, 13 / 3]
+        
+        for x, y in zip(mean(ps), result):
+            self.assertAlmostEqual(x, y)
+
     def test_random(self):
         ps = [[random.random() for _ in range(10)] for _ in range(100)]
         result = [0 for _ in range(10)]
@@ -220,3 +210,11 @@ class TestNewMeans(unittest.TestCase):
                           mean(points[3:6]),
                           mean(points[6:])])
                       
+class TestRecolor(unittest.TestCase):
+    
+    def test_recolors(self):
+        color_means = [[0,0,0], [0.5, 0.5, 0.5], [1,1,1]]
+        self.assertEqual(recolor([0,0,0], color_means), [0,0,0])
+        self.assertEqual(recolor([.1,.1,.1], color_means), [0,0,0])
+        self.assertEqual(recolor([.9, 1, .9], color_means), [1,1,1])
+        self.assertEqual(recolor([.4,.6,.4], color_means), [0.5,0.5,0.5])

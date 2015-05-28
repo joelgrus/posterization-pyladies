@@ -86,6 +86,12 @@ def k_means(ps, k, num_iterations=10):
         means = new_means(ps, means)
         
     return means
+
+def recolor(pixel, mean_colors):
+    """return the element of mean_colors that's closest to pixel"""
+    
+    i = closest_index(pixel, mean_colors)
+    return mean_colors[i]
     
 def posterize(pixels, num_colors):
     """given a list of lists of pixels, 
@@ -95,7 +101,7 @@ def posterize(pixels, num_colors):
     flattened = [pixel for row in pixels for pixel in row]
     mean_colors = k_means(flattened, num_colors)
     
-    return [[mean_colors[closest_index(pixel, mean_colors)] for pixel in row]
+    return [[recolor(pixel, mean_colors) for pixel in row]
             for row in pixels]
             
 ###############
@@ -195,9 +201,11 @@ class TestMean(unittest.TestCase):
     
     def test_concrete(self):
         ps = [[1,1,1], [1, 2, 3], [1, 4, 9]]
-        self.assertEqual(mean(ps),
-                         [1, 7 / 3, 13 / 3])
-                         
+        result = [1, 7 / 3, 13 / 3]
+        
+        for x, y in zip(mean(ps), result):
+            self.assertAlmostEqual(x, y)
+
     def test_random(self):
         ps = [[random.random() for _ in range(10)] for _ in range(100)]
         result = [0 for _ in range(10)]
@@ -229,3 +237,11 @@ class TestNewMeans(unittest.TestCase):
                           mean(points[3:6]),
                           mean(points[6:])])
                       
+class TestRecolor(unittest.TestCase):
+    
+    def test_recolors(self):
+        color_means = [[0,0,0], [0.5, 0.5, 0.5], [1,1,1]]
+        self.assertEqual(recolor([0,0,0], color_means), [0,0,0])
+        self.assertEqual(recolor([.1,.1,.1], color_means), [0,0,0])
+        self.assertEqual(recolor([.9, 1, .9], color_means), [1,1,1])
+        self.assertEqual(recolor([.4,.6,.4], color_means), [0.5,0.5,0.5])
