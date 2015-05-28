@@ -1,4 +1,4 @@
-the simplest way is probably to iterate over the +means+, remembering the best index.
+the simplest way is probably to iterate over the `means`, remembering the best index.
 
 ```python
 closest_distance = float('inf')  # this is infinity in Python
